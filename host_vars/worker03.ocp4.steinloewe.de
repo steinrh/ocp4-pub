@@ -1,0 +1,8 @@
+vm_disktype: "slow"
+vm_disksize: 50G
+vm_macaddress: "52:54:00:1b:bf:a4"
+vm_ipaddress: "192.168.100.66"
+vm_network: "openshift"
+vm_vcpu: 4
+vm_cpumode: "Haswell-noTSX-IBRS"
+vm_memory_gb: 12
