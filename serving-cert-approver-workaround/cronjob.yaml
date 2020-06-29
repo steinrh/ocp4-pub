@@ -1,0 +1,48 @@
+kind: CronJob
+apiVersion: batch/v1beta1
+metadata:
+  name: node-serving-cert-approver-cronjob
+  namespace: serving-cert-approver-workaround
+spec:
+  schedule: '1 * * * *'
+  concurrencyPolicy: Forbid
+  suspend: false
+  jobTemplate:
+    metadata:
+      creationTimestamp: null
+    spec:
+      template:
+        metadata:
+          creationTimestamp: null
+        spec:
+          volumes:
+            - name: script
+              configMap:
+                 name: script
+                 defaultMode: 0750
+          containers:
+            - resources:
+                limits:
+                  memory: '256Mi'
+                  cpu: '100m'
+              terminationMessagePath: /dev/termination-log
+              name: serving-cert-approver
+              volumeMounts:
+                - name: script
+                  mountPath: /approver
+              terminationMessagePolicy: File
+              image: >-
+                image-registry.openshift-image-registry.svc:5000/serving-cert-approver-workaround/oclientubi8:latest
+              imagePullPolicy: IfNotPresent
+              args:
+                - /bin/sh
+                - '-c'
+                - /approver/approver.sh
+          restartPolicy: Never
+          terminationGracePeriodSeconds: 30
+          dnsPolicy: ClusterFirst
+          securityContext: {}
+          schedulerName: default-scheduler
+          serviceAccount: signer
+  successfulJobsHistoryLimit: 10
+  failedJobsHistoryLimit: 10
