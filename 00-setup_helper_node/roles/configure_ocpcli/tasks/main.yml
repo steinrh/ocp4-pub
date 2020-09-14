@@ -20,11 +20,11 @@
     - configure_ocp_cli_binary
 
 - name: Extracting downloaded installer binary
-  shell: tar -C /usr/bin -xvf /usr/bin/openshift-install-linux-{{ openshift_version }}.tar.gz
+  shell: tar -C /usr/bin -xvf /usr/bin/openshift-install-linux-4.6.0-0.nightly-2020-07-31-225620.tar.gz
   tags: 
     - configure_ocp_cli_binary
 
 - name: Extracting downloaded client binary
-  shell: tar -C /usr/bin -xvf /usr/bin/openshift-client-linux-{{ openshift_version }}.tar.gz
+  shell: tar -C /usr/bin -xvf /usr/bin/openshift-client-linux-4.6.0-0.nightly-2020-07-31-225620.tar.gz
   tags: 
     - configure_ocp_cli_binary

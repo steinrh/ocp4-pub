@@ -5,4 +5,4 @@ menu title **** OpenShift 4 Master PXE Boot Menu ****
  
 label Install CoreOS {{ minor_version }} Master Node
  kernel /openshift4/{{ minor_version }}/{{ ocp4_kernel_image }}
- append ip=dhcp rd.neednet=1 coreos.inst.install_dev=vda console=tty0 console=ttyS0 coreos.inst=yes coreos.inst.image_url=http://{{ vm_ipaddress }}:8080/openshift4/images/{{ ocp4_bios_image }} coreos.inst.ignition_url=http://{{ vm_ipaddress }}:8080/openshift4/{{ openshift_version }}/ignitions/master.ign initrd=/openshift4/{{ minor_version }}/{{ ocp4_initrd_image }}  
+ append ip=dhcp rd.neednet=1 coreos.inst.install_dev=/dev/vda console=tty0 console=ttyS0  coreos.live.rootfs_url=http://{{ vm_ipaddress }}:8080/openshift4/images/{{ ocp4_rootfs_image }} coreos.inst.ignition_url=http://{{ vm_ipaddress }}:8080/openshift4/{{ openshift_version }}/ignitions/master.ign initrd=/openshift4/{{ minor_version }}/{{ ocp4_initrd_image }}  
