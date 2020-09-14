@@ -1,0 +1,10 @@
+vm_disktype: "slow"
+vm_disksize: 40G
+vm_macaddress: "52:54:00:7d:2d:15"
+vm_ipaddress: "192.168.4.145"
+vm_network: "rootz"
+vm_vcpu: 2
+vm_cpumode: "Haswell-noTSX-IBRS"
+vm_memory_gb: 12
+vm_data_disksize: 50G
+data_disk: yes

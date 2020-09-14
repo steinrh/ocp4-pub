@@ -19,13 +19,13 @@ subnet {{ dhcp_network }} netmask {{ dhcp_netmask }} {
         {% endfor %} 
         {% for vm in groups['ocp4_master_vm'] %}
           {% if vm not in groups['ocp4_bootstrap_vm'] %}
-            host {{ vm }} { hardware ethernet {{ hostvars[vm].vm_macaddress }}; fixed-address {{ hostvars[vm].vm_ipaddress }}; option host-name "{{ vm }}"; }
+            host {{ vm }} { hardware ethernet {{ hostvars[vm].vm_macaddress }}; fixed-address {{ hostvars[vm].vm_ipaddress }}; option host-name "{{ vm.split('.')[0] }}"; }
           {% endif %}
         {% endfor %} 
         {% for vm in groups['ocp4_bootstrap_vm'] %}
-          host {{ vm }} { hardware ethernet {{ hostvars[vm].vm_macaddress }}; fixed-address {{ hostvars[vm].vm_ipaddress }}; option host-name "{{ vm }}"; }
+          host {{ vm }} { hardware ethernet {{ hostvars[vm].vm_macaddress }}; fixed-address {{ hostvars[vm].vm_ipaddress }}; option host-name "{{ vm.split('.')[0] }}"; }
         {% endfor %}
         {% for vm in groups['ocp4_worker_vm'] %}
-          host {{ vm }} { hardware ethernet {{ hostvars[vm].vm_macaddress }}; fixed-address {{ hostvars[vm].vm_ipaddress }}; option host-name "{{ vm }}"; }
+          host {{ vm }} { hardware ethernet {{ hostvars[vm].vm_macaddress }}; fixed-address {{ hostvars[vm].vm_ipaddress }}; option host-name "{{ vm.split('.')[0] }}"; }
         {% endfor %}
 }

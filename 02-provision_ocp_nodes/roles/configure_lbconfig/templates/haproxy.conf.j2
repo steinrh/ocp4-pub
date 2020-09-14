@@ -1,4 +1,12 @@
 #---------------------------------------------------------------------
+# MANAGED BY ANSIBLE!!! .  See the
+# full configuration options online.
+#
+#   https://www.haproxy.org/download/1.8/doc/configuration.txt
+#
+#---------------------------------------------------------------------
+
+#---------------------------------------------------------------------
 # Global settings
 #---------------------------------------------------------------------
 global
@@ -27,6 +35,10 @@ global
     # turn on stats unix socket
     stats socket /var/lib/haproxy/stats
 
+    # utilize system-wide crypto-policies
+    ssl-default-bind-ciphers PROFILE=SYSTEM
+    ssl-default-server-ciphers PROFILE=SYSTEM
+
 #---------------------------------------------------------------------
 # common defaults that all the 'listen' and 'backend' sections will
 # use if not designated in their block
@@ -49,91 +61,71 @@ defaults
     timeout check           10s
     maxconn                 3000
 
-frontend frontend_6443
-    bind *:6443
-    mode tcp
-    option tcplog
-    timeout client 1m
-    default_backend backend_6443
 
-frontend frontend_22623
-    bind *:22623
-    mode tcp
-    option tcplog
-    timeout client 1m
-    default_backend backend_22623
-
-frontend frontend_443
-    bind *:443
-    mode tcp
-    option tcplog
-    timeout client 1m
-    default_backend backend_443
-
-frontend backend_80
-    bind *:80
-    mode tcp
-    option tcplog
-    timeout client 1m
-    default_backend backend_80
-
-backend backend_6443
-    mode tcp
-    option tcplog
-    option log-health-checks
-    option redispatch
-    log global
-    balance roundrobin
-    timeout connect 10s
-    timeout server 1m
+#---------------------------------------------------------------------
+# round robin balancing for OCP Kubernetes API Server
+#---------------------------------------------------------------------
+ frontend k8s_api
+   bind *:6443
+   mode tcp
+   default_backend k8s_api_backend
+ backend k8s_api_backend
+   balance roundrobin
+   mode tcp
    {% for vm in groups['ocp4_master_vm'] %}
-      server {{ vm }} {{ hostvars[vm].vm_ipaddress }}:6443 check
+      server {{ vm.split('.')[0] }} {{ hostvars[vm].vm_ipaddress }}:6443 check
    {% endfor %}
 
-backend backend_22623
-    mode tcp
-    option tcplog
-    option log-health-checks
-    option redispatch
-    log global
-    balance roundrobin
-    timeout connect 10s
-    timeout server 1m
-    # Remove the bootstrap server after ./openshift-install wait-for bootstrap-complete
+
+# ---------------------------------------------------------------------
+# round robin balancing for OCP Machine Config Server
+# ---------------------------------------------------------------------
+ frontend machine_config
+   bind *:22623
+   mode tcp
+   default_backend machine_config_backend
+ backend machine_config_backend
+   balance roundrobin
+   mode tcp
    {% for vm in groups['ocp4_master_vm'] %}
-      server {{ vm }} {{ hostvars[vm].vm_ipaddress }}:22623 check
+      server {{ vm.split('.')[0] }} {{ hostvars[vm].vm_ipaddress }}:22623 check
    {% endfor %}
 
-backend backend_443
-    mode tcp
-    option tcplog
-    option log-health-checks
-    option redispatch
-    log global
-    balance roundrobin
-    timeout connect 10s
-    timeout server 1m
+
+# ---------------------------------------------------------------------
+# round robin balancing for OCP Ingress Insecure Port
+# ---------------------------------------------------------------------
+ frontend ingress_insecure
+   bind *:80
+   mode tcp
+   default_backend ingress_insecure_backend
+ backend ingress_insecure_backend
+   balance roundrobin
+   mode tcp
    {% for vm in groups['ocp4_worker_vm'] %}
-      server {{ vm }} {{ hostvars[vm].vm_ipaddress }}:443 check
+      server {{ vm.split('.')[0] }} {{ hostvars[vm].vm_ipaddress }}:80 check
    {% endfor %}
 
-backend backend_80
-    mode tcp
-    option tcplog
-    option log-health-checks
-    option redispatch
-    log global
-    balance roundrobin
-    timeout connect 10s
-    timeout server 1m
+# ---------------------------------------------------------------------
+# round robin balancing for OCP Ingress Secure Port
+# ---------------------------------------------------------------------
+ frontend ingress_secure
+   bind *:443
+   mode tcp
+   default_backend ingress_secure_backend
+ backend ingress_secure_backend
+   balance roundrobin
+   mode tcp
    {% for vm in groups['ocp4_worker_vm'] %}
-      server {{ vm }} {{ hostvars[vm].vm_ipaddress }}:80 check
+      server {{ vm.split('.')[0] }} {{ hostvars[vm].vm_ipaddress }}:443 check
    {% endfor %}
 
-# Enable stats on :9000/haproxy_stats (no auth required)
-
-listen stats
-    bind 0.0.0.0:9000
-    mode http
-    stats enable
-    stats uri /haproxy_stats
+# ---------------------------------------------------------------------
+# Exposing HAProxy Statistic Page
+# ---------------------------------------------------------------------
+ listen stats
+     bind :32700
+     stats enable
+     stats uri /
+     stats hide-version
+     stats auth {{ haproxy_stat_user }}:{{ haproxy_stat_pass }}

@@ -3,15 +3,29 @@
 - name: Creating QCOW2 disk - PCIe NVME disk
   delegate_to: localhost
   shell:
-    cmd: "qemu-img create -f qcow2 /machines/vms/{{ inventory_hostname }}.qcow2 {{ vm_disksize }}"
+    cmd: "qemu-img create -f qcow2 /var/lib/libvirt/images/{{ inventory_hostname }}.qcow2 {{ vm_disksize }}"
   when: '"ocp4_nodes" in group_names'
   tags:
     - provisioning_libvirt
 
+# Adds second data disk if needed
+- name: Creating QCOW2 Data Disk
+  delegate_to: localhost
+  shell:
+    cmd: "qemu-img create -f qcow2 /var/lib/libvirt/images/{{ inventory_hostname }}-data.qcow2 {{ vm_data_disksize }}"
+  when: 
+   - '"ocp4_nodes" in group_names' 
+   - "data_disk"
+  tags:
+    - provisioning_libvirt
+
+
+
+
 - name: Ensure correct permission 
   delegate_to: localhost
   file:
-    path: '/machines/vms/{{ inventory_hostname }}.qcow2'
+    path: '/var/lib/libvirt/images/{{ inventory_hostname }}.qcow2'
     mode: u+rw,g-rwx,o-rwx
   when: "'ocp4_nodes' in group_names"
   tags:

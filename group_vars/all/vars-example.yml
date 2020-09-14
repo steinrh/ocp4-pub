@@ -1,0 +1,9 @@
+openshift_version: 4.5.7
+openshift_clusternet: 10.8.0.0/14
+openshift_clusternetprefix: 23
+openshift_servicenet: 172.30.0.0/16
+openshift_domain: ocp4
+openshift_routedomain: apps
+network_domain: example.com 
+ssh_key: 
+pull_secret: 

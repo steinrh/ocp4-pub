@@ -1,8 +1,0 @@
-vm_disktype: "fast"
-vm_disksize: 50G
-vm_macaddress: "52:54:00:ea:f1:6e"
-vm_ipaddress: "192.168.100.61"
-vm_network: "openshift"
-vm_vcpu: 6
-vm_cpumode: "Haswell-noTSX-IBRS"
-vm_memory_gb: 16

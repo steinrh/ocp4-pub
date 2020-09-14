@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 [![techbeatly](https://www.techbeatly.com/wp-content/uploads/2018/05/techbeatly-logo-v1.png)](https://www.techbeatly.com/)
 
 ## Introduction
@@ -127,6 +126,3 @@ To execute VM clean up:
 #> ansible-playbook  -i ../inventory  site.yml  -u root -K -b
 BECOME password: 
 ```
-=======
-# The OpenShift 4 Brain Dump
->>>>>>> d7d68e608b684391084f910194a94aef1aec116e

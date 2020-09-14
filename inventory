@@ -1,26 +1,24 @@
 [ocp4_nodes]
-bootstrap.ocp4.steinloewe.de
-master01.ocp4.steinloewe.de
-master02.ocp4.steinloewe.de
-master03.ocp4.steinloewe.de
-worker01.ocp4.steinloewe.de
-worker02.ocp4.steinloewe.de
-worker03.ocp4.steinloewe.de
+bootstrap.ocp4.steinlab.de
+master01.ocp4.steinlab.de
+master02.ocp4.steinlab.de
+master03.ocp4.steinlab.de
+worker01.ocp4.steinlab.de
+#worker02.ocp4.steinlab.de
 
 [ocp4_bootstrap_vm]
-bootstrap.ocp4.steinloewe.de
+bootstrap.ocp4.steinlab.de
 
 [ocp4_master_vm]
-bootstrap.ocp4.steinloewe.de
-master01.ocp4.steinloewe.de
-master02.ocp4.steinloewe.de
-master03.ocp4.steinloewe.de
+bootstrap.ocp4.steinlab.de
+master01.ocp4.steinlab.de
+master02.ocp4.steinlab.de
+master03.ocp4.steinlab.de
 
 [ocp4_worker_vm]
-worker01.ocp4.steinloewe.de
-worker02.ocp4.steinloewe.de
-worker03.ocp4.steinloewe.de
+worker01.ocp4.steinlab.de
+#worker02.ocp4.steinlab.de
 
 [helper_vm]
-helper.steinloewe.de
+helper.ocp4.steinlab.de
 

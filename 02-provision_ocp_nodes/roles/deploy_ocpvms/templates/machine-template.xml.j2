@@ -9,16 +9,16 @@
   <currentMemory unit='GiB'>{{ vm_memory_gb }}</currentMemory>
   <vcpu placement='static' current='{{ vm_vcpu }}'>{{ vm_vcpu }}</vcpu>
   <os>
-  <type arch='x86_64' machine='pc-q35-rhel7.6.0'>hvm</type>
+    <type arch='x86_64' machine='pc-q35-rhel7.6.0'>hvm</type>
     <bootmenu enable='yes'/>
   </os>
   <features>
     <acpi/>
     <apic/>
   </features>
-   <cpu mode='host-model' check='partial'>
-    <model fallback='allow'/>
-   </cpu>
+  <cpu mode='custom' match='exact' check='partial'>
+    <model fallback='allow'>{{ vm_cpumode }}</model>
+  </cpu>
   <clock offset='utc'>
     <timer name='rtc' tickpolicy='catchup'/>
     <timer name='pit' tickpolicy='delay'/>
@@ -32,13 +32,19 @@
     <suspend-to-disk enabled='no'/>
   </pm>
   <devices>
-    <emulator>/usr/libexec/qemu-kvm</emulator>
+    <emulator>/usr/bin/qemu-system-x86_64</emulator>
     <disk type='file' device='disk'>
       <driver name='qemu' type='qcow2'/>
-      <source file='/machines/vms/{{ inventory_hostname }}.qcow2'/>
+      <source file='/var/lib/libvirt/images/{{ inventory_hostname }}.qcow2'/>
       <target dev='vda' bus='virtio'/>
       <boot order='1'/>
       <address type='pci' domain='0x0000' bus='0x04' slot='0x00' function='0x0'/>
+    </disk>
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2'/>
+      <source file='/var/lib/libvirt/images/{{ inventory_hostname }}-data.qcow2'/>
+      <target dev='vdb' bus='virtio'/>
+      <address type='pci' domain='0x0000' bus='0x07' slot='0x00' function='0x0'/>
     </disk>
     <controller type='usb' index='0' model='qemu-xhci' ports='15'>
       <address type='pci' domain='0x0000' bus='0x02' slot='0x00' function='0x0'/>
