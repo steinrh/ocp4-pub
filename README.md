@@ -1,11 +1,21 @@
-[![techbeatly](https://www.techbeatly.com/wp-content/uploads/2018/05/techbeatly-logo-v1.png)](https://www.techbeatly.com/)
 
 ## Introduction
+
+Minimal Setup for OCP 4.x
+
+- 3 Masters
+- 2 Workers
+
+# Versions
+
+- 4.5
+- 4.6(nightly - FC5)
+
 
 #Pre-Req
 * Ansible Core 2.8
 * python-ldap (or python3-ldap depends on your setup)
-* Update VM template corresponding to your host capabilities. (02-provision_ocp_nodes/roles/deploy_ocpvms/templates/machine-template.xml.j2)
+* Update VM template corresponding to your host capabilities. (01-provision_ocp_nodes/roles/deploy_ocpvms/templates/machine-template.xml.j2)
 * Pull secret 
 * Core user ssh public key
 * DNS Configured (i`m using IdM as DNS server under 01-setup_idm_dns)
@@ -13,9 +23,8 @@
 There are four main parts in this playbook.
 
   * 1. Prepare & Configure Helper Node (DNS is out of scope).  
-      * In this repo I`m using IdM as DNS server, so there is IdM related DNS configuration playbook.      
   * 2. Preparation, Configuring and Deploying VM.
-  * 3. Clean up and deprovisioning VM.
+  * 3. Clean up and deprovisioning VM => ToDo
 
 All variables are stored in `group_vars` directory as much as possible with vaulted data for sensitive piece.
 
@@ -24,27 +33,26 @@ All variables are stored in `group_vars` directory as much as possible with vaul
 An inventory file should look like this with groups:
 ```
 [ocp4_nodes] # All OCP4 Nodes
-bootstrap.ocp4.local.bytewise.my
-master01.ocp4.local.bytewise.my
-master02.ocp4.local.bytewise.my
-master03.ocp4.local.bytewise.my
-worker01.ocp4.local.bytewise.my
-worker02.ocp4.local.bytewise.my
-worker03.ocp4.local.bytewise.my
+bootstrap.ocp4.example.com
+master01.ocp4.example.com
+master02.ocp4.example.com
+master03.ocp4.example.com
+worker01.ocp4.example.com
+worker02.ocp4.example.com
 
 [ocp4_bootstrap_vm] # OCP4 Bootstrap Node
-bootstrap.ocp4.local.bytewise.my
+bootstrap.ocp4.example.com
 
 [ocp4_master_vm] # OCP4 Master Node
-bootstrap.ocp4.local.bytewise.my
-master01.ocp4.local.bytewise.my
-master02.ocp4.local.bytewise.my
-master03.ocp4.local.bytewise.my
+bootstrap.ocp4.example.com
+master01.ocp4.example.com
+master02.ocp4.example.com
+master03.ocp4.example.com
 
 [ocp4_worker_vm] # OCP4 Worker Node 
-worker01.ocp4.local.bytewise.my
-worker02.ocp4.local.bytewise.my
-worker03.ocp4.local.bytewise.my
+worker01.ocp4.example.com
+worker02.ocp4.example.com
+worker03.ocp4.example.com
 
 [helper_vm] # Helper Node, not OCP4 node.
 bastion4.bytewise.my # Should only be stated here, not everywhere else!

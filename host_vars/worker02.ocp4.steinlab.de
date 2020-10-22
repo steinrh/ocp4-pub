@@ -5,6 +5,6 @@ vm_ipaddress: "192.168.4.145"
 vm_network: "rootz"
 vm_vcpu: 2
 vm_cpumode: "Haswell-noTSX-IBRS"
-vm_memory_gb: 12
+vm_memory_gb: 16
 vm_data_disksize: 50G
 data_disk: yes
