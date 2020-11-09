@@ -1,6 +1,0 @@
----
- minor_version: 4.5.6
- ocp4_kernel_image: rhcos-4.5.6-x86_64-installer-kernel-x86_64
- ocp4_bios_image: rhcos-4.5.6-x86_64-metal.x86_64.raw.gz 
- ocp4_initrd_image: rhcos-4.5.6-x86_64-installer-initramfs.x86_64.img
-

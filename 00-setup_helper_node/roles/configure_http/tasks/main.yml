@@ -10,9 +10,9 @@
     - "{{ images_directory }}"
     - "{{ ignitions_directory }}"
 
-- name: Downloading RHCOS 4.1.0 OS BIOS image
+- name: Downloading RHCOS 4.6.0 OS BIOS image
   get_url:
-    url: "{{ rhcos_biosimg_url }}"
+    url: "{{ rhcos_rootfs_url }}"
     dest: "{{ images_directory }}"
     timeout: 300
     validate_certs: false
@@ -21,9 +21,9 @@
       - configure_http_server
       - download_rhcos_image
 
-- name: Downloading RHCOS 4.1.0 OS UEFI image
+- name: Downloading RHCOS 4.6.0 OS UEFI image
   get_url:
-    url: "{{ rhcos_biosimg_url }}"
+    url: "{{ rhcos_rootfs_url }}"
     dest: "{{ images_directory }}"
     timeout: 300
     validate_certs: false
