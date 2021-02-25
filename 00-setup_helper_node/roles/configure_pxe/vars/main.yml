@@ -2,11 +2,11 @@
 # vars file for ../ansible_libvirt_upi_bm/setup_helper_node/roles/configure_pxe
 pxe_image_directory: /var/lib/tftpboot/openshift4/4.6
 pxe_boot_direcotry: /var/lib/tftpboot/pxelinux.cfg
-rhcos_kernel_url: https://mirror.openshift.com/pub/openshift-v4/x86_64/dependencies/rhcos/pre-release/latest-4.6/rhcos-4.6.0-rc.4-x86_64-live-kernel-x86_64
-rhcos_initramfs_url: https://mirror.openshift.com/pub/openshift-v4/x86_64/dependencies/rhcos/pre-release/latest-4.6/rhcos-4.6.0-rc.4-x86_64-live-initramfs.x86_64.img
+rhcos_kernel_url: https://mirror.openshift.com/pub/openshift-v4/x86_64/dependencies/rhcos/4.6/latest/rhcos-4.6.8-x86_64-live-kernel-x86_64
+rhcos_initramfs_url: https://mirror.openshift.com/pub/openshift-v4/x86_64/dependencies/rhcos/4.6/latest/rhcos-4.6.8-x86_64-live-initramfs.x86_64.img
 minor_version: 4.6
-ocp4_kernel_image: rhcos-4.6.0-rc.4-x86_64-live-kernel-x86_64
-ocp4_rootfs_image: rhcos-4.6.0-rc.4-x86_64-live-rootfs.x86_64.img
-ocp4_initrd_image: rhcos-4.6.0-rc.4-x86_64-live-initramfs.x86_64.img
+ocp4_kernel_image: rhcos-4.6.8-x86_64-live-kernel-x86_64
+ocp4_rootfs_image: rhcos-4.6.8-x86_64-live-rootfs.x86_64.img
+ocp4_initrd_image: rhcos-4.6.8-x86_64-live-initramfs.x86_64.img
 
 

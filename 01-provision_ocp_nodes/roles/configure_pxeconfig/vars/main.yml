@@ -1,6 +1,6 @@
 ---
  minor_version: 4.6
- ocp4_kernel_image: rhcos-4.6.0-rc.4-x86_64-live-kernel-x86_64
- ocp4_rootfs_image: rhcos-4.6.0-rc.4-x86_64-live-rootfs.x86_64.img
- ocp4_initrd_image: rhcos-4.6.0-rc.4-x86_64-live-initramfs.x86_64.img
+ ocp4_kernel_image: rhcos-4.6.8-x86_64-live-kernel-x86_64
+ ocp4_rootfs_image: rhcos-4.6.8-x86_64-live-rootfs.x86_64.img
+ ocp4_initrd_image: rhcos-4.6.8-x86_64-live-initramfs.x86_64.img
 
