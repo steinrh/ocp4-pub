@@ -8,9 +8,8 @@ Minimal Setup for OCP 4.x
 
 # Versions
 
-- 4.5
-- 4.6(nightly - FC5)
-
+- 4.6
+- 4.7
 
 #Pre-Req
 * Ansible Core 2.8
@@ -112,7 +111,7 @@ This playbook will configure above helper node initial config with all OCP nodes
 To execute this playbook (as localhost on Libvirt host):
 
 ```
-#> cd 02-provision_ocp_nodes
+#> cd 01-provision_ocp_nodes
 #> ansible-playbook  -i ../inventory  site.yml  -u root -K -b
 BECOME password: 
 Pull secret from cloud.redhat.com: {"auths":{"cloud.openshift.com":......redhat.com"}}}
